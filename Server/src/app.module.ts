@@ -27,8 +27,12 @@ export class AppModule implements OnModuleInit {
 
   constructor(private ds:DataSource){}
 
+  static isInitialized:boolean = false; 
   onModuleInit() {
-    importData(this.ds);
+    if (!AppModule.isInitialized){
+      importData(this.ds);
+      AppModule.isInitialized = true;
+    }
   }
 
   

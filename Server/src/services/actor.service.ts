@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { MessageType, MyEmptyResponse, MyResponse } from 'src/types/response.entity';
 import { DataSource, FindOperator, Repository } from 'typeorm';
-import { InsertActor, UpdateActor, ActorSummary} from '@shared/dist/contracts/actor/actor'
+import { InsertActor, UpdateActor, ActorSummary } from '@shared/dist/contracts/actor/actor'
 import { Actor } from 'src/types/actor.entity';
+import { Movie } from 'src/types/movie.entity';
 
 @Injectable()
 export class ActorService {
   private repository: Repository<Actor>
+  private movieRepository: Repository<Movie>
 
   constructor(private dataSource: DataSource) {
+
     this.repository = this.dataSource.getRepository(Actor);
+    this.movieRepository = this.dataSource.getRepository(Movie);
   }
 
   async insert(model: InsertActor): Promise<MyEmptyResponse> {
@@ -169,5 +173,34 @@ export class ActorService {
 
     return response;
   }
- 
+
+  async fetchActorsInMovie(movieId: number) {
+
+    const response = new MyResponse<ActorSummary[]>
+
+
+    try {
+      response.data =
+        (await this.movieRepository.findOne({
+          where: { id: movieId },
+          relations: ['actors']
+        }))?.actors?.map(x => {
+          return {
+            name: x.name,
+          } as ActorSummary
+        });
+    }
+    catch (ex) {
+      response.messages.push({
+        title: 'Db Failure',
+        text: 'Error while fetching data: fetch-all-Actor',
+        type: MessageType.error
+      });
+
+      console.error(ex);
+    }
+
+    return response;
+
+  }
 }

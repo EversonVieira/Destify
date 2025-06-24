@@ -5,7 +5,6 @@ import { DataSource } from "typeorm";
 
 export async function importData(ds: DataSource) {
 
-    console.log('importing data');
 
 
     if (!ds.isInitialized){
@@ -72,7 +71,6 @@ export async function importData(ds: DataSource) {
         }
 
         
-        console.log("Finished importing");
     }
     catch(ex){
         console.error(ex);
