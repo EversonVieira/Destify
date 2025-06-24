@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { MovieService } from 'src/services/movie.service';
 import { MyEmptyResponse, MyResponse } from 'src/types/response.entity';
 import { InsertMovie, UpdateMovie, MovieSummary} from '@myorg/shared/dist/contracts/movie/movie'
@@ -28,8 +28,8 @@ export class MovieController {
     return await this.service.fetchAll();
 
   }
-  @Get()
-  async byName(@Query('name') name: string): Promise<MyResponse<MovieSummary[]>> {
+  @Get("byName/:name")
+  async byName(@Param('name') name: string): Promise<MyResponse<MovieSummary[]>> {
 
     return await this.service.fetchByName(name);
 

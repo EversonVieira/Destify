@@ -1,8 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ENTITIES } from './utils/entities';
 import { CONTROLLERS } from './utils/controllers';
 import { SERVICES } from './utils/services';
+import { importData } from './utils/scaffold-data';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -21,4 +23,13 @@ import { SERVICES } from './utils/services';
   controllers: CONTROLLERS,
   providers: SERVICES,
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+
+  constructor(private ds:DataSource){}
+
+  onModuleInit() {
+    importData(this.ds);
+  }
+
+  
+}
