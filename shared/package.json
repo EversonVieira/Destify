@@ -1,0 +1,17 @@
+{
+  "name": "@myorg/shared",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
