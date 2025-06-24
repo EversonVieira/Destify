@@ -1,19 +1,19 @@
 import { Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
-import { MovieService } from 'src/services/movie.service';
+import { ActorService } from 'src/services/actor.service';
 import { MyEmptyResponse, MyResponse } from 'src/types/response.entity';
-import { InsertMovie, MovieSummary, UpdateMovie } from '@myorg/shared/dist/contracts/movie'
-@Controller('movies')
-export class MovieController {
-  constructor(private readonly service: MovieService) { }
+import { InsertActor, UpdateActor, ActorSummary} from '@shared/dist/contracts/actor/actor'
+@Controller('Actors')
+export class ActorController {
+  constructor(private readonly service: ActorService) { }
 
   @Post()
-  async Insert(model: InsertMovie): Promise<MyEmptyResponse> {
+  async Insert(model: InsertActor): Promise<MyEmptyResponse> {
 
     return await this.service.insert(model);
   }
 
   @Put()
-  async Update(model: UpdateMovie): Promise<MyEmptyResponse> {
+  async Update(model: UpdateActor): Promise<MyEmptyResponse> {
     return await this.service.update(model);
   }
 
@@ -23,13 +23,13 @@ export class MovieController {
   }
 
   @Get()
-  async all(): Promise<MyResponse<MovieSummary[]>> {
+  async all(): Promise<MyResponse<ActorSummary[]>> {
 
     return await this.service.fetchAll();
 
   }
   @Get()
-  async byName(@Query('name') name: string): Promise<MyResponse<MovieSummary[]>> {
+  async byName(@Query('name') name: string): Promise<MyResponse<ActorSummary[]>> {
 
     return await this.service.fetchByName(name);
 

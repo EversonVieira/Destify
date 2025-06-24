@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
 import { MovieService } from 'src/services/movie.service';
 import { MyEmptyResponse, MyResponse } from 'src/types/response.entity';
-import { InsertMovie, MovieSummary, UpdateMovie } from '@myorg/shared/dist/contracts/movie'
+import { InsertMovie, UpdateMovie, MovieSummary} from '@myorg/shared/dist/contracts/movie/movie'
 @Controller('movies')
 export class MovieController {
   constructor(private readonly service: MovieService) { }

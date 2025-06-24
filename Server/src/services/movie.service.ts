@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Movie } from 'src/types/movie.entity';
 import { MessageType, MyEmptyResponse, MyResponse } from 'src/types/response.entity';
 import { Actor } from 'src/types/actor.entity';
-import { InsertMovie, MovieSummary, UpdateMovie } from '@myorg/shared/dist/contracts/movie'
+import { InsertMovie, MovieSummary, UpdateMovie } from '@myorg/shared/dist/contracts/movie/movie'
 import { firstOrDefault } from '@myorg/shared/dist/utils/first-or-default'
 import { MovieRating } from 'src/types/movieRating.entity';
 import { DataSource, FindOperator, Repository } from 'typeorm';
@@ -151,6 +151,11 @@ export class MovieService {
     return response;
   }
 
+  async rateMovie(id: number, rate:number){
+
+    
+
+  }
   async delete(id: number) {
 
     const response = new MyEmptyResponse();
